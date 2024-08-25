@@ -69,13 +69,18 @@ return {
     end,
   },
   {
-  	"nvim-treesitter/nvim-treesitter",
-  	opts = {
-  		ensure_installed = {
-  			"vim", "lua", "vimdoc",
-        "html", "css",
-        "hcl", "terraform",
-  		},
-  	},
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "vim",
+        "lua",
+        "markdown",
+        "vimdoc",
+        "html",
+        "css",
+        "hcl",
+        "terraform",
+      },
+    },
   },
 }

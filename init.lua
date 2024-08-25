@@ -37,7 +37,8 @@ vim.schedule(function()
 end)
 
 -- Setup ansible filetype
-vim.filetype.add({
+-- TODO: Move it to some other place custom
+vim.filetype.add {
   pattern = {
     [".*/roles/.*.yaml"] = "yaml.ansible",
     ["inventory.yaml"] = "yaml.ansible",
@@ -45,9 +46,10 @@ vim.filetype.add({
     -- ["*.yaml"] = "yaml.ansible",
     -- ["*.yml"] = "yaml.ansible",
   },
-})
+}
 
 
+-- TODO: Move it to some other place custom
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.go",
   callback = function()
