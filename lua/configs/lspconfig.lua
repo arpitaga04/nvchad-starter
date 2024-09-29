@@ -24,10 +24,6 @@ local servers = {
 
   -- cmake
   "cmake",
-  -- TODO: Setup yamlls for
-  -- 1. Prometheus
-  -- 2. Kubernetes
-  -- 3. docker
   "yamlls",
 
   "helm_ls",
@@ -55,17 +51,35 @@ lspconfig.yamlls.setup {
   capabilities = nvlsp.capabilities,
   settings = {
     yaml = {
-      schemas = {
-        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-        ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
-        ["https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/prometheus.json"] = "prometheus.yaml",
-        ["https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/prometheus.rules.json"] = "*rules.yaml",
-        ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose.yaml",
+      schemaStore = {
+        -- You must disable built-in schemaStore support if you want to use
+        -- this plugin and its advanced options like `ignore`.
+        enable = false,
+        -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+        url = "",
       },
+      schemas = require('schemastore').yaml.schemas(),
+      -- schemas = {
+      --   ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+      --   ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
+      --   ["https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/prometheus.json"] = "prometheus.yaml",
+      --   ["https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/prometheus.rules.json"] = "*rules.yaml",
+      --   ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose.yaml",
+      -- },
     },
   }
 }
-
+lspconfig.jsonls.setup {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
+    },
+  },
+}
 -- lspconfig.ansiblels.setup {
 --   on_attach = nvlsp.on_attach,
 --   on_init = nvlsp.on_init,
