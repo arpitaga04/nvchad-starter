@@ -91,12 +91,13 @@ lspconfig.jsonls.setup {
     },
   },
 }
--- lspconfig.ansiblels.setup {
---   on_attach = nvlsp.on_attach,
---   on_init = nvlsp.on_init,
---   capabilities = nvlsp.capabilities,
---   filetypes = {""}
--- }
+lspconfig.ansiblels.setup {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+  filetypes = { "yaml", "yml", "ansible" },
+  root_dir = lspconfig.util.root_pattern("roles", "playbooks"),
+}
 
 -- configuring single server, example: typescript
 -- lspconfig.tsserver.setup {
