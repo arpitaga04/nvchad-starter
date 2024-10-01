@@ -7,3 +7,6 @@ o.cursorlineopt ='both' -- to enable cursorline!
 
 o.relativenumber = true
 o.number = true
+o.foldmethod = 'expr'
+o.foldexpr = 'nvim_treesitter#foldexpr()'
+o.foldlevel = 99
